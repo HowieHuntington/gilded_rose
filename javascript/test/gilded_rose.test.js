@@ -411,4 +411,22 @@ describe('Gilded Rose', () => {
       expect(items[0].quality).toBe(0);
     }); 
   });
+
+  describe('processQualityLessThan50', () => {
+    it('increases quality before max is reached', () => {
+      const gildedRose = new GildedRose();
+      const item = new Item('Concert Tickets', 8, 10);
+
+      gildedRose.processQualityLessThan50(item);
+      expect(item.quality).toBe(11);
+    });
+
+    it('should not increase quality beyond 50', () => {
+      const gildedRose = new GildedRose();
+      const item = new Item('Concert Tickets', 8, 50);
+
+      gildedRose.processQualityLessThan50(item);
+      expect(item.quality).toBe(50);
+    });
+  });
 });
