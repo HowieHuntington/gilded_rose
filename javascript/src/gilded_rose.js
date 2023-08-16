@@ -17,9 +17,31 @@ class GildedRose {
     }
   }
 
+  processConcertTickets(item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1;
+      if (item.daysRemaining < 11) {
+        if (item.quality < 50) {
+          item.quality = item.quality + 1;
+        }
+      }
+      if (item.daysRemaining < 6) {
+        if (item.quality < 50) {
+          item.quality = item.quality + 1;
+        }
+      }
+    }
+    item.daysRemaining = item.daysRemaining - 1;
+    if (item.daysRemaining < 0) {
+      item.quality = item.quality - item.quality;
+    }
+  }
+
   processItemEndOfDay(item) {
     if(item.name === "Aged Cheddar") {
       this.processAgedCheddar(item);
+    } else if (item.name === "Concert Tickets") {
+      this.processConcertTickets(item);
     } else {
       if (item.name != "Aged Cheddar" && item.name != "Concert Tickets") {
         if (item.quality > 0) {
@@ -28,7 +50,7 @@ class GildedRose {
           }
         }
       } else {
-        // Move into processAgedCheddar start
+        // Move into processAgedCheddar && processConcertTickets start
         if (item.quality < 50) {
           item.quality = item.quality + 1;
           if (item.name == "Concert Tickets") {
@@ -44,12 +66,14 @@ class GildedRose {
             }
           }
         }
-      } // Move into processAgedCheddar end
+      } // end
   
-      // Move into processAgedCheddar start
+      // Move into processAgedCheddar && processConcertTickets start
       if (item.name != "Hammer") {
         item.daysRemaining = item.daysRemaining - 1;
       } // end
+
+
       if (item.daysRemaining < 0) {
         // Move daysRemaining check < 0 into processAgedCheddar
         if (item.name != "Aged Cheddar") {
