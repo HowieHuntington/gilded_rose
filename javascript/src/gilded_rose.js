@@ -37,65 +37,32 @@ class GildedRose {
     }
   }
 
+  processNormalItem(item) {
+    if (item.quality > 0) {
+      if (item.name != "Hammer") {
+        item.quality = item.quality - 1;
+      }
+    }
+    if (item.name != "Hammer") {
+      item.daysRemaining = item.daysRemaining - 1;
+    } 
+    if (item.daysRemaining < 0) {
+      if (item.quality > 0) {
+        if (item.name != "Hammer") {
+          item.quality = item.quality - 1;
+        }
+      }
+    }
+  }
+
   processItemEndOfDay(item) {
     if(item.name === "Aged Cheddar") {
       this.processAgedCheddar(item);
     } else if (item.name === "Concert Tickets") {
       this.processConcertTickets(item);
     } else {
-      if (item.name != "Aged Cheddar" && item.name != "Concert Tickets") {
-        if (item.quality > 0) {
-          if (item.name != "Hammer") {
-            item.quality = item.quality - 1;
-          }
-        }
-      } else {
-        // Move into processAgedCheddar && processConcertTickets start
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-          if (item.name == "Concert Tickets") {
-            if (item.daysRemaining < 11) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
-            }
-            if (item.daysRemaining < 6) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
-            }
-          }
-        }
-      } // end
-  
-      // Move into processAgedCheddar && processConcertTickets start
-      if (item.name != "Hammer") {
-        item.daysRemaining = item.daysRemaining - 1;
-      } // end
-
-
-      if (item.daysRemaining < 0) {
-        // Move daysRemaining check < 0 into processAgedCheddar
-        if (item.name != "Aged Cheddar") {
-          // remove from process aged cheddar
-          if (item.name != "Concert Tickets") {
-            if (item.quality > 0) {
-              if (item.name != "Hammer") {
-                item.quality = item.quality - 1;
-              }
-            }
-          } else {
-            item.quality = item.quality - item.quality;
-          }
-        } else {
-          if (item.quality < 50) {
-            // move into process aged cheddar
-            item.quality = item.quality + 1;
-          }
-        }
-      }
+      this.processNormalItem(item);
     }
-   
   }
 }
 
