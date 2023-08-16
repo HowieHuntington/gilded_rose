@@ -38,7 +38,9 @@ class GildedRose {
   processRawMilk(item){
     item.daysRemaining = item.daysRemaining -1;
     if (item.daysRemaining > 0) {
-      item.quality = item.quality - 2;
+      item.quality > 2 ? item.quality = item.quality - 2 : item.quality = 0;
+    } else {
+      item.quality > 4 ? item.quality = item.quality - 4 : item.quality = 0;
     }
   }
 

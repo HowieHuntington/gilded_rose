@@ -370,5 +370,45 @@ describe('Gilded Rose', () => {
       expect(items[0].daysRemaining).toBe(4);
       expect(items[0].quality).toBe(8);
     });
+
+    it('on sell date', () => {
+      const gildedRose = new GildedRose();
+      const items = [new Item('Raw Milk', 0, 10)];
+
+      gildedRose.processEndOfDay(items);
+
+      expect(items[0].daysRemaining).toBe(-1);
+      expect(items[0].quality).toBe(6);
+    });
+
+    it('after sell date', () => {
+      const gildedRose = new GildedRose();
+      const items = [new Item('Raw Milk', -2, 6)];
+
+      gildedRose.processEndOfDay(items);
+
+      expect(items[0].daysRemaining).toBe(-3);
+      expect(items[0].quality).toBe(2);
+    });
+
+    it('before sell date min quality', () => {
+      const gildedRose = new GildedRose();
+      const items = [new Item('Raw Milk', 2, 1)];
+
+      gildedRose.processEndOfDay(items);
+
+      expect(items[0].daysRemaining).toBe(1);
+      expect(items[0].quality).toBe(0);
+    });
+
+    it('after sell date min quality', () => {
+      const gildedRose = new GildedRose();
+      const items = [new Item('Raw Milk', -3, 3)];
+
+      gildedRose.processEndOfDay(items);
+
+      expect(items[0].daysRemaining).toBe(-4);
+      expect(items[0].quality).toBe(0);
+    }); 
   });
 });
