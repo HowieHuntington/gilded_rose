@@ -5,15 +5,17 @@ class GildedRose {
     }
   }
 
-  processAgedCheddar(item) {
+  processQualityLessThan50(item) {
     if (item.quality < 50) {
       item.quality = item.quality + 1;
     }
+  }
+
+  processAgedCheddar(item) {
+    this.processQualityLessThan50(item);
     item.daysRemaining = item.daysRemaining - 1;
     if (item.daysRemaining < 0) {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1;
-      }
+      this.processQualityLessThan50(item);
     }
   }
 
@@ -21,14 +23,10 @@ class GildedRose {
     if (item.quality < 50) {
       item.quality = item.quality + 1;
       if (item.daysRemaining < 11) {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
+        this.processQualityLessThan50(item);
       }
       if (item.daysRemaining < 6) {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
+        this.processQualityLessThan50(item);
       }
     }
     item.daysRemaining = item.daysRemaining - 1;
@@ -38,17 +36,13 @@ class GildedRose {
   }
 
   processNormalItem(item) {
-    if (item.quality > 0) {
-      if (item.name != "Hammer") {
+    if (item.name !== "Hammer") {
+      if (item.quality > 0) {
         item.quality = item.quality - 1;
       }
-    }
-    if (item.name != "Hammer") {
       item.daysRemaining = item.daysRemaining - 1;
-    } 
-    if (item.daysRemaining < 0) {
-      if (item.quality > 0) {
-        if (item.name != "Hammer") {
+      if (item.daysRemaining < 0) {
+        if (item.quality > 0) {
           item.quality = item.quality - 1;
         }
       }
@@ -56,12 +50,15 @@ class GildedRose {
   }
 
   processItemEndOfDay(item) {
-    if(item.name === "Aged Cheddar") {
-      this.processAgedCheddar(item);
-    } else if (item.name === "Concert Tickets") {
-      this.processConcertTickets(item);
-    } else {
-      this.processNormalItem(item);
+    switch(item.name) {
+      case "Aged Cheddar":
+        this.processAgedCheddar(item);
+        break;
+      case "Concert Tickets":
+        this.processConcertTickets(item);
+        break;
+      default:
+        this.processNormalItem(item);
     }
   }
 }
