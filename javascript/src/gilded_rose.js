@@ -35,6 +35,13 @@ class GildedRose {
     }
   }
 
+  processRawMilk(item){
+    item.daysRemaining = item.daysRemaining -1;
+    if (item.daysRemaining > 0) {
+      item.quality = item.quality - 2;
+    }
+  }
+
   processNormalItem(item) {
     if (item.name !== "Hammer") {
       if (item.quality > 0) {
@@ -56,6 +63,9 @@ class GildedRose {
         break;
       case "Concert Tickets":
         this.processConcertTickets(item);
+        break;
+      case "Raw Milk":
+        this.processRawMilk(item);
         break;
       default:
         this.processNormalItem(item);

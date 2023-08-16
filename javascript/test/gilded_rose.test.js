@@ -359,4 +359,16 @@ describe('Gilded Rose', () => {
       expect(items[0].quality).toBe(0);
     });
   });
+
+  describe('Raw Milk', () => {
+    it('before sell date', () => {
+      const gildedRose = new GildedRose();
+      const items = [new Item('Raw Milk', 5, 10)];
+
+      gildedRose.processEndOfDay(items);
+
+      expect(items[0].daysRemaining).toBe(4);
+      expect(items[0].quality).toBe(8);
+    });
+  });
 });
