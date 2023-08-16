@@ -1,0 +1,20 @@
+Notes, learning lessons, and things to practice: 
+
+- Initially in this assessment, I overlooked the thought of using git.  This was a goofy slip up that I have never neglected in the workplace,
+but a great learning lesson and something to be cognizant of in these types of challenges.  
+
+- SLOW DOWN X3..  I was rushing myself a bit and my thoughts became hard to organize which cost me time in the end.  I need to slow down, and write detailed comments in the code when
+making changes.  Additionally, if given the chance to do over, I would commit small and commit often.  
+
+- I learned to put more faith in the passing unit tests.  These were my source of truth 
+
+- My strategy involved breaking things down while preserving the functionality of the original code to check against.  Taking one use case and
+expanding from there was the right idea.  
+
+- There were some hints that I didnt pick up on.  Thinking about the problem wholistically would have been a tell that "Hammer" doesn't degrade in 
+quality like other expirable foods.  
+
+- When refactoring, it's more efficient to copy large code segments into the functions first and then eliminate unnecessary parts,
+rather than making changes piece by piece.
+
+- Collapsing the if's to hide logic that is unnecessary is helpful when whittling down the monolithic code
